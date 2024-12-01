@@ -1,51 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.home')
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-
-    <title>Store - Your Best Marketplace</title>
-
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <link href="{{ asset('style/main.css') }}" rel="stylesheet" />
-</head>
-
-<body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light navbar-store fixed-top navbar-fixed-top" data-aos="fade-down">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="{{ asset('image/logo.svg') }}" alt="" />
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Dashboard </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/categories.html">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Rewards</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register.html">Sign Up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-success nav-link px-4 text-white" href="{{ route('login') }}">Sign In</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+@section('content')
     <!-- Page Content -->
     <div class="page-content page-home">
         <section class="store-carousel">
@@ -149,171 +104,32 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12" data-aos="fade-up">
-                        <h5>New Products</h5>
+                        <h5>Products</h5>
                     </div>
                 </div>
                 <div class="row">
+                    @foreach ($products as $product)
                     <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                        <a class="component-products d-block" href="/details.html">
+                        <a class="component-products d-block" href="{{ route('home.detailProduct', $product->id) }}">
                             <div class="products-thumbnail">
                                 <div class="products-image"
                                     style="
-                      background-image: url('/images/products-apple-watch.jpg');
+                      background-image: url('{{ Storage::url($product->foto) }}');
                     ">
                                 </div>
                             </div>
                             <div class="products-text">
-                                Apple Watch 4
+                                {{ $product->nama }}
                             </div>
-                            <div class="products-price">
-                                $890
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                        <a class="component-products d-block" href="/details.html">
-                            <div class="products-thumbnail">
-                                <div class="products-image"
-                                    style="
-                      background-image: url('/images/products-orange-bogotta.jpg');
-                    ">
-                                </div>
-                            </div>
-                            <div class="products-text">
-                                Orange Bogotta
-                            </div>
-                            <div class="products-price">
-                                $94,509
+                            <div class="products-status">
+
                             </div>
                         </a>
                     </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                        <a class="component-products d-block" href="/details.html">
-                            <div class="products-thumbnail">
-                                <div class="products-image"
-                                    style="
-                      background-image: url('/images/products-sofa-ternyaman.jpg');
-                    ">
-                                </div>
-                            </div>
-                            <div class="products-text">
-                                Sofa Ternyaman
-                            </div>
-                            <div class="products-price">
-                                $1,409
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-                        <a class="component-products d-block" href="/details.html">
-                            <div class="products-thumbnail">
-                                <div class="products-image"
-                                    style="
-                      background-image: url('/images/products-bubuk-maketti.jpg');
-                    ">
-                                </div>
-                            </div>
-                            <div class="products-text">
-                                Bubuk Maketti
-                            </div>
-                            <div class="products-price">
-                                $225
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="500">
-                        <a class="component-products d-block" href="/details.html">
-                            <div class="products-thumbnail">
-                                <div class="products-image"
-                                    style="
-                      background-image: url('/images/products-tatakan-gelas.jpg');
-                    ">
-                                </div>
-                            </div>
-                            <div class="products-text">
-                                Tatakan Gelas
-                            </div>
-                            <div class="products-price">
-                                $45,184
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="600">
-                        <a class="component-products d-block" href="/details.html">
-                            <div class="products-thumbnail">
-                                <div class="products-image"
-                                    style="
-                      background-image: url('/images/products-mavic-kawe.jpg');
-                    ">
-                                </div>
-                            </div>
-                            <div class="products-text">
-                                Mavic Kawe
-                            </div>
-                            <div class="products-price">
-                                $503
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="700">
-                        <a class="component-products d-block" href="/details.html">
-                            <div class="products-thumbnail">
-                                <div class="products-image"
-                                    style="
-                      background-image: url('/images/products-black-edition-nike.jpg');
-                    ">
-                                </div>
-                            </div>
-                            <div class="products-text">
-                                Black Edition Nike
-                            </div>
-                            <div class="products-price">
-                                $70,482
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="800">
-                        <a class="component-products d-block" href="/details.html">
-                            <div class="products-thumbnail">
-                                <div class="products-image"
-                                    style="
-                      background-image: url('/images/products-monkey-toys.jpg');
-                    ">
-                                </div>
-                            </div>
-                            <div class="products-text">
-                                Monkey Toys
-                            </div>
-                            <div class="products-price">
-                                $783
-                            </div>
-                        </a>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p class="pt-4 pb-2">
-                        2019 Copyright Store. All Rights Reserved.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="{{ asset('vendor/jquery/jquery.slim.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-    <script src="{{ asset('script/navbar-scroll.js') }}"></script>
-</body>
-
-</html>
+@endsection

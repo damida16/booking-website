@@ -14,6 +14,7 @@ class Product extends Model
         'model',
         'serial_number',
         'deskripsi',
+        'status',
         'foto'
     ];
 }

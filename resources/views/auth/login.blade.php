@@ -49,9 +49,7 @@
                                 >Categories</a
                             >
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Rewards</a>
-                        </li>
+
                     </ul>
                 </div>
             </div>
