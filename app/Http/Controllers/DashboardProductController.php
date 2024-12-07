@@ -97,21 +97,18 @@ class DashboardProductController extends Controller
             'foto' => 'nullable|image|max:2048',
         ]);
 
-        // Handle file upload if present
         if ($request->hasFile('foto')) {
-            // Store the profile picture and get the path
-            $path = $request->file('foto')->store('foto', 'public');
-
-            if ($product->foto) {
-                // Delete the existing profile picture file from the storage
-                Storage::disk('public')->delete($product->foto);
-            }
-
-            // Save the path of the profile picture in the database
-            $product->foto = $path;
+            $fotoPath = $request->file('foto')->store('photos', 'public');
+            $product->foto = $fotoPath;
         }
 
-        $product->save();
+        $product->update([
+            'nama' => $request->nama,
+            'kategori' => $request->kategori,
+            'model' => $request->model,
+            'serial_number' => $request->serial_number,
+            'deskripsi' => $request->deskripsi,
+        ]);
 
         // Redirect or return a response (customize as needed)
         return redirect()->route('dashboard.products.index')->with('success', 'Products updated successfully!');
