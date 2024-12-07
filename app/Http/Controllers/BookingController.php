@@ -64,7 +64,7 @@ class BookingController extends Controller
             Cart::where('user_id', auth()->id())->delete();
 
             // Redirect to a success page or back with a success message
-            return redirect()->route('dashboard.booking.show', $product->id)
+            return redirect()->route('dashboard.booking.show', $booking->id)
                 ->with('success', 'Booking created successfully, and products have been reserved.');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors([
