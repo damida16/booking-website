@@ -70,6 +70,7 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
+
         // Validate and update the product
         $request->validate([
             'nama' => 'required|string|max:255',
@@ -79,6 +80,8 @@ class ProductController extends Controller
             'deskripsi' => 'nullable|string',
             'foto' => 'nullable|image|max:2048',
         ]);
+
+        return dd($request);
 
         // Handle file upload if present
         if ($request->hasFile('foto')) {

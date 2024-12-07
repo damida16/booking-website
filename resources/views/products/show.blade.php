@@ -73,28 +73,27 @@
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <a href="{{ route('dashboard.products.edit', $product->id) }}"
-                                                class="btn btn-success btn-block px-5">
+                                            <button type="submit" class="btn btn-success btn-block px-5">
                                                 Update Product
-                                            </a>
+                                            </button>
                                         </div>
 
                                         <div class="col">
-                                            <form action="{{ route('dashboard.products.destroy', $product->id) }}"
-                                                method="POST" class="d-inline ml-2"
-                                                onsubmit="return confirm('Are you sure you want to delete this product?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-block px-5">
-                                                    Delete Product
-                                                </button>
-                                            </form>
+                                            <button type="button" id="deleteButton" class="btn btn-danger btn-block px-5">
+                                                Delete Product
+                                            </button>
 
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
+                        </form>
+                        <form action="{{ route('dashboard.products.destroy', $product->id) }}" method="POST"
+                            class="d-inline ml-2"
+                            onsubmit="return confirm('Are you sure you want to delete this product?');">
+                            @csrf
+                            @method('DELETE')
                         </form>
                     </div>
                 </div>
@@ -126,4 +125,11 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        document.getElementById('deleteButton').addEventListener('click', function() {
+            document.getElementById('deleteForm').submit();
+        });
+    </script>
 @endsection

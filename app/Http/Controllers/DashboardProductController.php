@@ -15,7 +15,6 @@ class DashboardProductController extends Controller
     {
         $products = Product::all();
         return view('products.index', compact('products'));
-
     }
 
     /**
@@ -30,11 +29,12 @@ class DashboardProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-     public function store(Request $request)
+    public function store(Request $request)
     {
         // Validate and store a new product
         $request->validate([
             'nama' => 'required|string|max:255',
+            'kategori' => 'required|string|max:255',
             'model' => 'required|string|max:255',
             'serial_number' => 'required|string|unique:products',
             'deskripsi' => 'nullable|string',
@@ -46,11 +46,12 @@ class DashboardProductController extends Controller
         if ($request->hasFile('foto')) {
             // Store the profile picture and get the path
             $path = $request->file('foto')->store('foto', 'public');
-            $fotoPath = $path ;
+            $fotoPath = $path;
         }
 
         Product::create([
             'nama' => $request->nama,
+            'kategori' => $request->kategori,
             'model' => $request->model,
             'serial_number' => $request->serial_number,
             'deskripsi' => $request->deskripsi,
@@ -85,27 +86,18 @@ class DashboardProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Find the user by ID
         $product = Product::findOrFail($id);
-
-        // Validate incoming request data
+        // Validate and update the product
         $request->validate([
             'nama' => 'required|string|max:255',
+            'kategori' => 'required|string|max:255',
             'model' => 'required|string|max:255',
-            'serial_number' => 'required|string',
+            'serial_number' => 'required|string|unique:products,serial_number,' . $product->id,
             'deskripsi' => 'nullable|string',
             'foto' => 'nullable|image|max:2048',
-            ],
-        );
+        ]);
 
-        // Update product details
-        $product->nama = $request->input('nama');
-        $product->model = $request->input('model');
-        $product->serial_number = $request->input('serial_number');
-        $product->deskripsi = $request->input('deskripsi');
-
-        $product->save();
-        // Handle the profile picture upload
+        // Handle file upload if present
         if ($request->hasFile('foto')) {
             // Store the profile picture and get the path
             $path = $request->file('foto')->store('foto', 'public');
@@ -140,6 +132,4 @@ class DashboardProductController extends Controller
 
         return redirect()->route('dashboard.products.index')->with('success', 'Product deleted successfully!');
     }
-
-
 }
