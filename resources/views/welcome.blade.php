@@ -41,7 +41,7 @@
                     <div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="100">
                         <div class="component-categories d-block category-card selected" data-category="all">
                             <div class="categories-image">
-                                <img src="/images/categories-gadgets.svg" alt="All Categories" class="w-100" />
+                                <img src="/images/icon-all.png" alt="All Categories" class="w-100" />
                             </div>
                             <p class="categories-text">
                                 All
@@ -53,8 +53,17 @@
                         <div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="100">
                             <div class="component-categories d-block category-card" data-category="{{ $category }}">
                                 <div class="categories-image">
-                                    <img src="/images/categories-gadgets.svg" alt="{{ $category }} Categories"
-                                        class="w-100" />
+                                    @if ($category == 'Cloud')
+                                        <img src="/images/icon-cloud.png" alt="{{ $category }} Categories"
+                                            class="w-100" />
+                                    @elseif($category == 'Security')
+                                        <img src="/images/icon-security.png" alt="{{ $category }} Categories"
+                                            class="w-100" />
+                                    @else
+                                        <img src="/images/icon-all.png" alt="{{ $category }} Categories"
+                                            class="w-100" />
+                                    @endif
+
                                 </div>
                                 <p class="categories-text">
                                     {{ $category }}
