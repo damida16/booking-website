@@ -20,6 +20,7 @@ return new class extends Migration
             $table->dateTime('start_book'); // Booking start time
             $table->dateTime('end_book'); // Booking end time
             $table->text('notes')->nullable(); // Optional notes
+            $table->string('status');
             $table->timestamps();
 
             // Add foreign key constraint

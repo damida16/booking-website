@@ -11209,8 +11209,8 @@ footer p {
 
 .page-dashboard .list-group-item.active {
   background: -webkit-gradient(linear, right top, left top, color-stop(2%, rgba(255, 113, 88, 0.32)), to(rgba(255, 255, 255, 0)));
-  background: linear-gradient(270deg, rgba(255, 113, 88, 0.32) 2%, rgba(255, 255, 255, 0) 100%);
-  border-right: 4px solid #ff7158;
+  background: linear-gradient(270deg, rgba(8, 43, 106, 0.32) 2%, rgba(255, 255, 255, 0) 100%);
+  border-right: 4px solid #082B6A;
   color: #0c0d36;
 }
 

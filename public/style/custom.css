@@ -1,0 +1,18 @@
+.category-card.selected {
+  border: 2px solid #28a745;
+  background-color: #e9f7ef;
+}
+
+.navbar-logo {
+  height: 60px;
+  width: auto;
+}
+
+.modal {
+  z-index: 1050 !important;
+}
+
+/* Optional: Ensure modal backdrop is clickable */
+.modal-backdrop.show {
+  z-index: 1040 !important;
+}

@@ -12,11 +12,15 @@ class Product extends Model
     protected $fillable = [
         'nama',
         'model',
+        'kategori',
         'serial_number',
         'deskripsi',
-        'status',
+        'isAvailable',
         'foto'
     ];
+
+    public function bookings()
+    {
+        return $this->belongsToMany(Booking::class, 'booking_products');
+    }
 }
-
-

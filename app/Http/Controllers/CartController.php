@@ -13,8 +13,8 @@ class CartController extends Controller
     {
         $carts = Cart::with('product')->where('user_id', auth()->id())->get();
         return view('cart.index', compact('carts'));
-
     }
+
     public function addToCart(Request $request)
     {
         // Validate the request
@@ -26,10 +26,11 @@ class CartController extends Controller
         $product = Product::findOrFail($validated['product_id']);
 
         // Check if the product is available
-        if ($product->status !== 'available') {
-            return response()->json([
-                'message' => 'Product is not available for booking.',
-            ], 400);
+        if ($product->isAvailable == false) {
+            return redirect()
+                ->back() // Return to the previous page (current route)
+                ->with('error', 'Product is not available for book') // Pass validation errors
+                ->withInput();
         }
 
         // Check if the product is already in the user's cart
@@ -37,29 +38,22 @@ class CartController extends Controller
             ->where('product_id', $product->id)
             ->first();
 
-        if ($existingCartItem) {
-            // Update the quantity if the product is already in the cart
+        if (!$existingCartItem) {
 
-            $existingCartItem->save();
+            // $existingCartItem->save();
 
-            return response()->json([
-                'message' => 'Cart updated successfully.',
-                'cart_item' => $existingCartItem,
+            // return response()->json([
+            //     'message' => 'Cart updated successfully.',
+            //     'cart_item' => $existingCartItem,
+            // ]);
+            $cartItem = Cart::create([
+                'user_id' => auth()->id(),
+                'product_id' => $product->id,
             ]);
         }
 
         // Create a new cart item
-        $cartItem = Cart::create([
-            'user_id' => auth()->id(),
-            'product_id' => $product->id,
-
-        ]);
 
         return redirect()->route('cart')->with('success', 'Product added successfully.');
-
-        // return response()->json([
-        //     'message' => 'Product added to cart successfully.',
-        //     'cart_item' => $cartItem,
-        // ]);
     }
 }

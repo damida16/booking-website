@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.4/dist/sweetalert2.min.css">
 
     <link href="{{ asset('style/main.css') }}" rel="stylesheet" />
+    <link href="{{ asset('style/custom.css') }}" rel="stylesheet" />
 </head>
 
 <body>
@@ -23,25 +24,26 @@
             <!-- Sidebar -->
             <div class="border-right" id="sidebar-wrapper">
                 <div class="sidebar-heading text-center">
-                    <img src="/images/dashboard-store-logo.svg" alt="" class="my-4" />
+                    <img src="{{ asset('images/sangfor-login.png') }}" alt="" class="my-4" width="150px" />
                 </div>
                 <div class="list-group list-group-flush">
                     <a href="{{ route('dashboard') }}"
                         class="list-group-item list-group-item-action {{ Route::is('dashboard') ? 'active' : '' }}">Dashboard</a>
-                    <a href="{{ route('dashboard.products.index') }}"
-                        class="list-group-item list-group-item-action {{ Route::is('dashboard.products.*') ? 'active' : '' }}">
-                        My Products
-                    </a>
-                    <a href="/dashboard-transactions.html"
-                        class="list-group-item list-group-item-action">Transactions</a>
-                    <a href="/dashboard-settings.html" class="list-group-item list-group-item-action">Store Settings</a>
+
+                    <a href="{{ route('dashboard.booking.index') }}"
+                        class="list-group-item list-group-item-action {{ Route::is('dashboard.booking.*') ? 'active' : '' }}">Bookings</a>
                     @if (auth()->user()->hasRole('admin'))
+                        <a href="{{ route('dashboard.products.index') }}"
+                            class="list-group-item list-group-item-action {{ Route::is('dashboard.products.*') ? 'active' : '' }}">
+                            My Products
+                        </a>
+
                         <a href="{{ route('dashboard.users.index') }}"
                             class="list-group-item list-group-item-action {{ Route::is('dashboard.users.*') ? 'active' : '' }}">
                             Manage Users
                         </a>
                     @endif
-                    <a href="/dashboard-account.html" class="list-group-item list-group-item-action">My Account</a>
+                    {{-- <a href="/dashboard-account.html" class="list-group-item list-group-item-action">My Account</a> --}}
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->
@@ -69,8 +71,7 @@
                                     Hi, {{ auth()->user()->name }}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/index.html">Back to Store</a>
-                                    <a class="dropdown-item" href="/dashboard-account.html">Settings</a>
+                                    <a class="dropdown-item" href="{{ route('home') }}">Back to Home Page</a>
                                     <div class="dropdown-divider"></div>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
@@ -79,7 +80,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-inline-block mt-2" href="#">
+                                <a class="nav-link d-inline-block mt-2" href="{{ route('cart') }}">
                                     <img src="/images/icon-cart-empty.svg" alt="" />
                                 </a>
                             </li>
@@ -117,6 +118,7 @@
     <!-- SweetAlert2 JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.4/dist/sweetalert2.min.js"></script>
 
+    @yield('script')
 
     <script>
         AOS.init();

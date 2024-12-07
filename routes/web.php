@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardProductController;
@@ -33,7 +34,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
 });
 
 // Route::get('/categories', 'CategoryController@index')->name('categories');
@@ -55,13 +55,21 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/addtocart', [CartController::class, 'addToCart'])->name('addtocart');
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
+    Route::post('/booking', [BookingController::class, 'submit'])->name('booking.submit');
+
+    Route::post('/check-booking-code', [BookingController::class, 'checkBookingCode'])->name('check.booking.code');
+
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::resource('products', DashboardProductController::class)->names('products');
+
+        Route::resource('booking', BookingController::class)->names('booking');
+        Route::post('booking/updateStatus/{id}', [BookingController::class, 'updateStatus'])->name('booking.updateStatus');
+        Route::post('booking/pdf/{id}', [BookingController::class, 'pdf'])->name('booking.pdf');
+
         Route::middleware(['role:admin'])->group(function () {
             Route::resource('users', UserController::class)->names('users');
         });
-        // Route::get('products/{id}', 'DashboardProductController@details')->name('dashboard-product-details');
-        // Route::post('products/{id}', 'DashboardProductController@update')->name('dashboard-product-update');
+
         Route::post('products/gallery/upload', 'DashboardProductController@uploadGallery')->name('dashboard-product-gallery-upload');
         Route::get('products/gallery/delete/{id}', 'DashboardProductController@deleteGallery')->name('dashboard-product-gallery-delete');
 
@@ -75,15 +83,15 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-Route::prefix('admin')->namespace('Admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::get('/', 'DashboardController@index')->name('admin-dashboard');
-    Route::resources([
-        'category' => 'CategoryController',
-        'user' => 'User Controller',
-        'product' => 'ProductController',
-        'product-gallery' => 'ProductGalleryController',
-        'transaction' => 'TransactionController',
-    ]);
-});
+// Route::prefix('admin')->namespace('Admin')->middleware(['auth', 'admin'])->group(function () {
+//     Route::get('/', 'DashboardController@index')->name('admin-dashboard');
+//     Route::resources([
+//         'category' => 'CategoryController',
+//         'user' => 'User Controller',
+//         'product' => 'ProductController',
+//         'product-gallery' => 'ProductGalleryController',
+//         'transaction' => 'TransactionController',
+//     ]);
+// });
 
 require __DIR__ . '/auth.php';

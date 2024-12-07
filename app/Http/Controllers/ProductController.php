@@ -25,6 +25,7 @@ class ProductController extends Controller
         // Validate and store a new product
         $request->validate([
             'nama' => 'required|string|max:255',
+            'kategori' => 'required|string|max:255',
             'model' => 'required|string|max:255',
             'serial_number' => 'required|string|unique:products',
             'deskripsi' => 'nullable|string',
@@ -36,6 +37,7 @@ class ProductController extends Controller
 
         Product::create([
             'nama' => $request->nama,
+            'kategori' => $request->kategori,
             'model' => $request->model,
             'serial_number' => $request->serial_number,
             'deskripsi' => $request->deskripsi,
@@ -47,6 +49,15 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        if (!$product->isAvailable) {
+            // Retrieve the current active booking for the product
+            $activeBooking = $product->bookings()
+                ->whereIn('status', ['Booked', 'Picked Up'])
+                ->first();
+
+            // Pass the active booking to the view
+            return view('products.show', compact('product', 'activeBooking'));
+        }
         // Show details of a specific product
         return view('products.show', compact('product'));
     }
@@ -62,6 +73,7 @@ class ProductController extends Controller
         // Validate and update the product
         $request->validate([
             'nama' => 'required|string|max:255',
+            'kategori' => 'required|string|max:255',
             'model' => 'required|string|max:255',
             'serial_number' => 'required|string|unique:products,serial_number,' . $product->id,
             'deskripsi' => 'nullable|string',
@@ -76,6 +88,7 @@ class ProductController extends Controller
 
         $product->update([
             'nama' => $request->nama,
+            'kategori' => $request->kategori,
             'model' => $request->model,
             'serial_number' => $request->serial_number,
             'deskripsi' => $request->deskripsi,
