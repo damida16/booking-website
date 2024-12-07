@@ -109,8 +109,9 @@ class DashboardProductController extends Controller
 
             // Save the path of the profile picture in the database
             $product->foto = $path;
-            $product->save();
         }
+
+        $product->save();
 
         // Redirect or return a response (customize as needed)
         return redirect()->route('dashboard.products.index')->with('success', 'Products updated successfully!');

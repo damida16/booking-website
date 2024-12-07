@@ -161,6 +161,7 @@
             @endforeach
         </table>
         <div class="signature-section">
+            <p>Notes: {{ $booking->notes }}</p>
             <p>Reason:</p>
             <p>Remark:</p>
         </div>
@@ -176,13 +177,14 @@
                     <td style="width: 50%">
                         <p>Loan By:</p>
                         <p>Signature:</p>
-                        <p>( Partner/customer please sign here )</p>
+                        <p><br><br><br><br></p>
                         <p>Date:</p>
                         <p>Company Stamp: sangfor technologies</p>
                     </td>
                     <td style="width: 50%">
                         <p>Receive By:</p>
                         <p>Signature:</p>
+                        <p><br><br><br></p>
                         <p>( Partner/customer please sign here )</p>
                         <p>Date:</p>
                         <p>Company Stamp:</p>
@@ -199,6 +201,7 @@
                     <td style="width: 50%">
                         <p>Return By:</p>
                         <p>Signature:</p>
+                        <p><br><br><br></p>
                         <p>( partner/customer please sign here )</p>
                         <p>Date:</p>
                         <p>Company Stamp:</p>
@@ -206,6 +209,7 @@
                     <td style="width: 50%">
                         <p>Receive By:</p>
                         <p>Signature:</p>
+                        <p><br><br><br><br></p>
                         <p>Date:</p>
                         <p>Company Stamp:</p>
                     </td>
